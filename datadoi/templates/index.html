@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - Bielefeld University dataset registry{% endblock %}
+
+{% block content %}
+<h2>Bielefeld University dataset registry</h2>
+<ul>
+  <li><a href="registry/datacite/">Register a new dataset</a></li>
+  <li><a href="queue">View registration queue</a></li>
+  <li>View registered datasets</li>
+</ul>
+{% endblock %}

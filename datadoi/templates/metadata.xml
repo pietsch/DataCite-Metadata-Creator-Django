@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="http://datacite.org/schema/kernel-2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-2.2 http://schema.datacite.org/meta/kernel-2.2/metadata.xsd">
+	<identifier identifierType="DOI">10.5072/UNIBI/TEST.0123456789</identifier>
+	<creators>
+{% for creator in object.creators.all %}
+		<creator>
+			<creatorName>{{ creator }}</creatorName>
+		</creator>
+{% endfor %}
+	</creators>
+	<titles>
+		<title>{{ object.title }}</title>
+{% if object.subtitle %}
+		<title titleType="Subtitle">{{ object.subtitle }}</title>
+{% endif %}
+	</titles>
+	<publisher>{{ object.publisher }}</publisher>
+	<publicationYear>{{ object.publicationYear }}</publicationYear>
+{% if object.subjects.all %}
+	<subjects>
+{% for subject in object.subjects.all %}
+		<subject>{{ subject.name }}</subject>
+{% endfor %}
+	</subjects>
+{% endif %}
+{% if object.contributors.all %}
+	<contributors>
+{% for contributor in object.contributors.all %}
+		<contributor contributorType="{{ contributor.contributorType }}">
+			<contributorName>{{ contributor.name }}</contributorName>
+		</contributor>
+{% endfor %}
+	</contributors>
+{% endif %}
+{% if object.dates %}
+	<dates>
+{% for date in object.dates.all %}
+		<date dateType="{{ date.dateType }}">{{ date.date|date:"Y-m-d" }}</date>
+{% endfor %}
+	</dates>
+{% endif %}
+{% if object.language %}
+	<language>{{ object.language }}</language>
+{% endif %}
+{% if object.resourceType %}
+	<resourceType resourceTypeGeneral="{{ object.resourceType.resourceTypeGeneral }}">{{ object.resourceType.description }}</resourceType>
+{% endif %}
+{% if object.alternateIdentifiers.all %}
+	<alternateIdentifiers>
+{% for alternateIdentifier in object.alternateIdentifiers.all %}
+		<alternateIdentifier alternateIdentifierType="{{ alternateIdentifier.alternateIdentifierType }}">{{ alternateIdentifier.alternateIdentifier }}</alternateIdentifier>
+{% endfor %}
+	</alternateIdentifiers>
+{% endif %}
+{% if object.relatedIdentifiers.all %}
+	<relatedIdentifiers>
+{% for id in object.relatedIdentifiers.all %}
+		<relatedIdentifier relatedIdentifierType="{{ id.relatedIdentifierType }}" relationType="{{ id.relationType }}">{{ id.relatedIdentifier }}</relatedIdentifier>
+{% endfor %}
+        </relatedIdentifiers>
+{% endif %}
+{% if object.sizes.all %}
+	<sizes>
+{% for size in object.sizes.all %}
+		<size>{{ size }}</size>
+{% endfor %}
+	</sizes>
+{% endif %}
+{% if object.formats.all %}
+	<formats>
+{% for format in object.formats.all %}
+		<format>{{ format }}</format>
+{% endfor %}
+	</formats>
+{% endif %}
+{% if object.version %}
+	<version>{{ object.version }}</version>
+{% endif %}
+{% if object.rights %}
+	<rights>{{ object.rights }}</rights>
+{% endif %}
+{% if object.descriptions.all %}
+	<descriptions>
+{% for description in object.descriptions.all %}
+		<description descriptionType="{{ description.descriptionType }}">{{ description.description }}</description>
+{% endfor %}
+	</descriptions>
+{% endif %}
+</resource>

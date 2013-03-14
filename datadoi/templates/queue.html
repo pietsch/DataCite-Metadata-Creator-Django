@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - Prepared datasets{% endblock %}
+
+{% block content %}
+<h2>Datasets prepared for registration</h2>
+<ul>
+    {% for resource in object_list %}
+    <li><a href="/doi/{{ resource.slug }}/">{{ resource.title }}</a>: <a href="/xml/{{ resource.slug }}/view/">view XML metadata</a>, <a href="/xml/{{ resource.slug }}/download/">download XML metadata</a>, or <a href="/xml/{{ resource.slug }}/send/">send XML metadata to DataCite</a></li>
+    {% endfor %}
+</ul>
+&hellip; or <a href="/registry/datacite">enter or modify metadata</a>.
+{% endblock %}

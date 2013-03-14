@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - {{ object.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<dl>
+  <dt><b>Creators:</b></dt>
+{% for creator in object.creators.all %}
+  <dd>{{ creator }}</dd>
+{% endfor %}
+  <dt><b>Title:</b></dt>
+  <dd>{{ object.title }}</dd>
+{% if object.subtitle %}
+  <dd>{{ object.subtitle }}</dd>
+{% endif %}
+
+  <dt><b>Publisher:</b></dt>
+  <dd>{{ object.publisher }}</dd>
+
+  <dt><b>Publication year:</b></dt>
+  <dd>{{ object.publicationYear }}</dd>
+
+{% if object.subjects.all %}
+  <dt>Subjects:</dt>
+{% for subject in object.subjects.all %}
+  <dd>{{ subject.name }}</dd>
+{% endfor %}
+{% endif %}
+
+{% if object.contributors.all %}
+  <dt>Contributors:</dt>
+{% for contributor in object.contributors.all %}
+  <dd>{{ contributor.name }} ({{ contributor.contributorType }})</dd>
+{% endfor %}
+{% endif %}
+
+{% if object.dates.all %}
+  <dt>Dates:</dt>
+{% for date in object.dates.all %}
+  <dd>{{ date.date }} ({{ date.dateType }})</dd>
+{% endfor %}
+{% endif %}
+
+{% if object.language %}
+  <dt>Language:</dt>
+  <dd>{{ object.language }}</dd>
+{% endif %}
+
+{% if object.resourceType %}
+  <dt>ResourceType:</dt>
+  <dd>{{ object.resourceType.resourceTypeGeneral }} {% if object.resourceType.description %}({{ object.resourceType.description }}){% endif %}</dd>
+{% endif %}
+
+{% if object.alternateIdentifiers.all %}
+  <dt>Alternate identifiers:</dt>
+{% for id in object.alternateIdentifiers.all %}
+  <dd>{{ id.alternateIdentifierType }}: {{ id.alternateIdentifier }} </dd>
+{% endfor %}
+{% endif %}
+
+{% if object.relatedIdentifiers.all %}
+  <dt>Related identifiers:</dt>
+{% for id in object.relatedIdentifiers.all %}
+  <dd>{{ id }}</dd>
+{% endfor %}
+{% endif %}
+{% if object.sizes.all %}
+  <dt>Sizes:</dt>
+{% for size in object.sizes.all %}
+  <dd>{{ size }}</dd>
+{% endfor %}
+{% endif %}
+{% if object.formats.all %}
+  <dt>Formats:</dt>
+{% for format in object.formats.all %}
+  <dd>{{ format }}</dd>
+{% endfor %}
+{% endif %}
+{% if object.version %}
+  <dt>Version:</dt>
+  <dd>{{ object.version }}</dd>
+{% endif %}
+{% if object.rights %}
+  <dt>Rights:</dt>
+  <dd>{{ object.rights }}</dd>
+{% endif %}
+</dl>
+{% if object.descriptions.all %}
+
+<h3>Descriptions</h3>
+<dl>
+{% for description in object.descriptions.all %}
+  <dt>{{ description.descriptionType }}:</dt>
+  <dd>{{ description.description|linebreaks }}</dd>
+{% endfor %}
+</dl>
+{% endif %}
+
+<hr />
+
+<p>Information first submitted on {{ object.date_created }}.</p>
+<p>Updated by {{ object.submitter }} on {{ object.date_updated }}.</p>
+
+{% endblock %}
