@@ -15,7 +15,9 @@
   <xsl:variable name="doi_resolver">http://dx.doi.org/</xsl:variable>
   <xsl:variable name="viaf_resolver">http://viaf.org/viaf/</xsl:variable>
   <xsl:variable name="isni_resolver">http://isni.oclc.nl/DB=1.2/SET=4/TTL=18/CMD?ACT=SRCHA&amp;IKT=8006&amp;SRT=&amp;TRM=</xsl:variable>
-  <!-- TODO: find ORCID resolver -->
+  <xsl:variable name="orcid_resolver">http://orcid.org/</xsl:variable>
+  <xsl:variable name="authorclaim_resolver">http://authorclaim.org/profile/</xsl:variable>
+  <xsl:variable name="researcherid_resolver">http://www.researcherid.com/rid/</xsl:variable>
 
   <xsl:template name="add-line-breaks">
     <xsl:param name="string" select="." />
@@ -38,6 +40,24 @@
   <xsl:template name="person-link">
     <xsl:param name="text" select="." />
       <xsl:choose>
+	<xsl:when test="translate(d:nameIdentifier/@nameIdentifierScheme, $lowercase, $uppercase) = 'RESEARCHERID'">
+	  <xsl:element name="a">
+	    <xsl:attribute name="href"><xsl:value-of select="concat($researcherid_resolver,d:nameIdentifier)" /></xsl:attribute>
+	    <xsl:value-of select="$text" />
+	  </xsl:element>
+	</xsl:when>
+	<xsl:when test="translate(d:nameIdentifier/@nameIdentifierScheme, $lowercase, $uppercase) = 'AUTHORCLAIM'">
+	  <xsl:element name="a">
+	    <xsl:attribute name="href"><xsl:value-of select="concat($authorclaim_resolver,d:nameIdentifier)" /></xsl:attribute>
+	    <xsl:value-of select="$text" />
+	  </xsl:element>
+	</xsl:when>
+	<xsl:when test="translate(d:nameIdentifier/@nameIdentifierScheme, $lowercase, $uppercase) = 'ORCID'">
+	  <xsl:element name="a">
+	    <xsl:attribute name="href"><xsl:value-of select="concat($orcid_resolver,d:nameIdentifier)" /></xsl:attribute>
+	    <xsl:value-of select="$text" />
+	  </xsl:element>
+	</xsl:when>
 	<xsl:when test="translate(d:nameIdentifier/@nameIdentifierScheme, $lowercase, $uppercase) = 'ISNI'">
 	  <xsl:element name="a">
 	    <xsl:attribute name="href"><xsl:value-of select="concat($isni_resolver,d:nameIdentifier)" /></xsl:attribute>
