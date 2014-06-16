@@ -76,6 +76,12 @@
 	    <xsl:value-of select="$text" />
 	  </xsl:element>
 	</xsl:when>
+	<xsl:when test="translate(d:nameIdentifier/@nameIdentifierScheme, $lowercase, $uppercase) = 'URL'">
+	  <xsl:element name="a">
+	    <xsl:attribute name="href"><xsl:value-of select="d:nameIdentifier" /></xsl:attribute>
+	    <xsl:value-of select="$text" />
+	  </xsl:element>
+	</xsl:when>
 	<xsl:otherwise>
 	    <xsl:value-of select="$text" />
 	</xsl:otherwise>
